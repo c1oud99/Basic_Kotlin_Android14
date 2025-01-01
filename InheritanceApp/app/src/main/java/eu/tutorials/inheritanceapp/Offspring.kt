@@ -1,6 +1,6 @@
 package eu.tutorials.inheritanceapp
 
-class Offspring : Secondary(), Archery, Singer {
+class Offspring : Secondary(), Archer, Singer {
     override fun archery() {
         super.archery()
         println("Archery skills enhanced by Offspring")
