@@ -3,6 +3,7 @@ package eu.tutorials.countermvvm
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,19 +23,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import eu.tutorials.countermvvm.ui.theme.CounterMVVMTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val viewModel: CounterViewModel = viewModel()
             CounterMVVMTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TheCounterApp()
+                    TheCounterApp(viewModel)
                 }
             }
         }
@@ -42,31 +45,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TheCounterApp(){
-    val count = remember{ mutableStateOf(0) }
-
-    fun increment(){
-        count.value++
-    }
-
-    fun decrement(){
-        count.value--
-    }
+fun TheCounterApp(viewModel: CounterViewModel){
 
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
-        Text(text = "Count: ${count.value}",
+        Text(text = "Count: ${viewModel.count.value}",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(16.dp))
         Row{
-            Button(onClick = { increment() }) {
+            Button(onClick = { viewModel.increment() }) {
                 Text("Increment")
             }
-            Button(onClick = { decrement() }) {
+            Button(onClick = { viewModel.decrement() }) {
                 Text("Decrement")
             }
         }
