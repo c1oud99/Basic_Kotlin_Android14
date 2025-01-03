@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import java.util.Locale.Category
 
 class MainViewModel : ViewModel() {
 
@@ -15,6 +14,7 @@ class MainViewModel : ViewModel() {
     init {
         fetchCategories()
     }
+
 
     private fun fetchCategories(){
         viewModelScope.launch {
@@ -40,4 +40,5 @@ class MainViewModel : ViewModel() {
         val list: List<Category> = emptyList(),
         val error: String? = null
     )
+
 }

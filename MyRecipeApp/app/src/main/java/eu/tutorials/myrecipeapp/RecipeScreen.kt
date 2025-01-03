@@ -1,6 +1,5 @@
 package eu.tutorials.myrecipeapp
 
-import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,19 +8,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberAsyncImagePainter
 
 @Composable
 fun RecipeScreen(modifier: Modifier = Modifier){
@@ -35,8 +34,9 @@ fun RecipeScreen(modifier: Modifier = Modifier){
 
             viewstate.error != null ->{
                 Text("ERROR OCCURRED")
-            }eles ->{
-                CategoryScreen(categories = viewstate.list)
+            }
+            else ->{
+                CategoryScreen(categories = viewstate.list )
             }
         }
     }
@@ -46,12 +46,11 @@ fun RecipeScreen(modifier: Modifier = Modifier){
 fun CategoryScreen(categories: List<Category>){
     LazyVerticalGrid(GridCells.Fixed(2), modifier = Modifier.fillMaxSize()){
         items(categories){
-            category ->
+                category ->
             CategoryItem(category = category)
         }
     }
 }
-
 // How each Items looks like
 @Composable
 fun CategoryItem(category: Category){
@@ -68,11 +67,13 @@ fun CategoryItem(category: Category){
                 .aspectRatio(1f)
         )
 
+
         Text(
             text = category.strCategory,
             color = Color.Black,
             style = TextStyle(fontWeight = FontWeight.Bold),
-            modifier = Modifier.padding(top = 4.dp)
+            modifier = Modifier.padding(top=4.dp)
         )
     }
 }
+
