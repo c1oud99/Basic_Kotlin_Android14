@@ -22,6 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import eu.tutorials.navigationsample.ui.theme.NavigationSampleTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    MyApp()
                 }
             }
         }
@@ -42,33 +45,25 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun FirstScreen(){
-    val name = remember {
-        mutableStateOf("")
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
-        Text("This is the First Screen", fontSize = 24.sp)
-        Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(value = name.value, onValueChange = {
-            name.value = it
-        })
-        Button(onClick = {
-
-        }) {
-            Text("Go to Second Screen")
+fun MyApp(){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "firstscreen"){
+        composable("firstscreen"){
+            FirstScreen {name->
+                navController.navigate("secondscreen/$name")
+            }
+        }
+        composable("secondscreen/{name}"){
+            val name = it.arguments?.getString("name") ?: "no name"
+            SecondScreen(name) {
+                navController.navigate("firstscreen")
+                navController.navigate("thirdscreen")
+            }
+        }
+        composable("thirdscreen"){
+            ThirdScreen {
+                navController.navigate("firstscreen")
+            }
         }
     }
-}
-
-@Preview
-@Composable
-fun FirstPreview(){
-    FirstScreen()
 }
