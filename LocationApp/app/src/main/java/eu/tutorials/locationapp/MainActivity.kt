@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,8 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.data.EmptyGroup.location
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import eu.tutorials.locationapp.ui.theme.LocationAppTheme
 
@@ -34,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    MyApp()
                 }
             }
         }
@@ -42,7 +40,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun LocationDispaly(
+fun MyApp(){
+    val context = LocalContext.current
+    val locationUtils = LocationUtils(context)
+    LocationDisplay(locationUtils = locationUtils, context = context)
+}
+
+@Composable
+fun LocationDisplay(
     locationUtils: LocationUtils,
     context: Context
 ){
@@ -67,6 +72,10 @@ fun LocationDispaly(
                     Toast.makeText(context,
                         "Location Permission is required for this feature to work", Toast.LENGTH_LONG)
                         .show()
+                }else{
+                    Toast.makeText(context,
+                        "Location Permission is required. Please enable it in the Android Settings", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         })
@@ -81,6 +90,12 @@ fun LocationDispaly(
                 //
             }else{
                 //
+                requestPermissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
             }
         }) {
             Text(text = "Get Location")
