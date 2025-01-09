@@ -9,7 +9,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.Navigation
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import eu.tutorials.myshoppinglistapp.ui.theme.MyShoppingListAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,6 +31,26 @@ class MainActivity : ComponentActivity() {
                     //ShoppingListApp()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun Navigation(){
+    val navController = rememberNavController()
+    val viewModel: LocationViewModel = viewModel()
+    val context = LocalContext.current
+    val locationUtils = LocationUtils(context)
+
+    NavHost(navController, startDestination = "shoppinglistscreen"){
+        composable("shoppinglistscreen"){
+            ShoppingListApp(
+                locationUtils = locationUtils,
+                viewModel = viewModel,
+                navController = navController,
+                context = context,
+                address = viewModel.address.value.firstOrNull()?.formatted_address ?: "No Address"
+            )
         }
     }
 }
