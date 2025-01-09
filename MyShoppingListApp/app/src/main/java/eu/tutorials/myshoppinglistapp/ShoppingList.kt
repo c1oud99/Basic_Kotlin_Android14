@@ -1,5 +1,6 @@
 package eu.tutorials.myshoppinglistapp
 
+import android.icu.util.LocaleData.MeasurementSystem.SI
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -63,7 +64,27 @@ fun ShoppingListApp(){
                 .padding(16.dp)
         ){
             items(sItems){
-                ShoppingListItem(it, {}, {})
+                item ->
+                if (item.isEditing){
+                    ShoppingItemEditor(item = item, onEditComplete = {
+                        editeName, editedQuantity ->
+                        sItems = sItems.map { it.copy(isEditing = false) }
+                        val editedItem = sItems.find { it.id == item.id }
+                        editedItem?.let {
+                            it.name = editeName
+                            it.quantity = editedQuantity
+                        }
+                    })
+                }else{
+                    ShoppingListItem(item = item,
+                        onEditClick = {
+                            //finding out which item we are editing and changing is "isEditing boolean" to true
+                            sItems = sItems.map { it.copy(isEditing = it.id==item.id )}
+                        },
+                            onDeleteClick = {
+                                sItems = sItems-item
+                            })
+                }
             }
         }
     }
@@ -142,13 +163,17 @@ fun ShoppingItemEditor(item: ShoppingItem, onEditComplete: (String, Int) -> Unit
                 value= editedName,
                 onValueChange = {editedName = it},
                 singleLine = true,
-                modifier = Modifier.wrapContentSize().padding(8.dp)
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(8.dp)
             )
             BasicTextField(
                 value= editedQuantity,
                 onValueChange = {editedQuantity = it},
                 singleLine = true,
-                modifier = Modifier.wrapContentSize().padding(8.dp)
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(8.dp)
             )
         }
 
