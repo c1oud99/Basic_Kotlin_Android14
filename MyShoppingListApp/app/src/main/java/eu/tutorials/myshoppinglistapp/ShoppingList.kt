@@ -117,6 +117,7 @@ fun ShoppingListApp(
                         editedItem?.let {
                             it.name = editeName
                             it.quantity = editedQuantity
+                            it.address = address
                         }
                     })
                 }else{

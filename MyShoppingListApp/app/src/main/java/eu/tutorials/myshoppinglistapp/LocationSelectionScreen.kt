@@ -20,7 +20,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun LocationSelectionScreen(
-    location: LocationData
+    location: LocationData,
     onLOcationSelected: (LocationData) -> Unit) {
 
     val userLocation = remember {
@@ -40,7 +40,7 @@ fun LocationSelectionScreen(
             onMapClick = {
                 userLocation.value = it
             }
-        ) {
+        ) {mjn
             Marker(state = MarkerState(position = userLocation.value))
         }
 
