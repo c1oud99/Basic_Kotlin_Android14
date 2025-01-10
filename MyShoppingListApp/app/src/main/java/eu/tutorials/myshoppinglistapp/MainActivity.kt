@@ -15,6 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.Navigation
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import eu.tutorials.myshoppinglistapp.ui.theme.MyShoppingListAppTheme
 
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //ShoppingListApp()
+                    Navigation()
                 }
             }
         }
@@ -51,6 +52,14 @@ fun Navigation(){
                 context = context,
                 address = viewModel.address.value.firstOrNull()?.formatted_address ?: "No Address"
             )
+        }
+        dialog("locationscreen"){backstack ->
+            viewModel.location.value?.let { it1 ->
+                LocationSelectionScreen(location = it1, onLOcationSelected = {locationData ->
+                    viewModel.fetchAddress("${locationData.latitude}, ${locationData.longitude}")
+                    navController.popBackStack()
+                })
+            }
         }
     }
 }
