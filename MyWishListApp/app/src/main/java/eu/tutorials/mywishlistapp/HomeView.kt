@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import eu.tutorials.mywishlistapp.data.DummyWish
 import eu.tutorials.mywishlistapp.data.Wish
 
 @Composable
@@ -48,8 +50,12 @@ fun HomeView(){
     ) {
         LazyColumn(modifier = Modifier
             .fillMaxSize()
-            .padding(it)){
+            .padding(it)) {
+            items(DummyWish.wishList){
+                wish -> WishItem(wish = wish) {
 
+            }
+            }
         }
     }
 
