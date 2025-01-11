@@ -29,7 +29,8 @@ fun HomeView(){
                 modifier = Modifier.padding(all = 20.dp),
                 contentColor = Color.White,
                 backgroundColor = Color.Black,
-                onClick = { // TODO Add Navigation to add screen
+                onClick = {
+                    Toast.makeText(context, "FAButton Clicked", Toast.LENGTH_LONG).show()
                 }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
