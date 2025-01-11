@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "eu.tutorials.mywishlistapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "eu.tutorials.mywishlistapp"
