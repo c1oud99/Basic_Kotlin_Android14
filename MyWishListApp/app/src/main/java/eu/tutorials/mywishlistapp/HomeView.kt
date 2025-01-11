@@ -31,6 +31,8 @@ fun HomeView(){
                 backgroundColor = Color.Black,
                 onClick = {
                     Toast.makeText(context, "FAButton Clicked", Toast.LENGTH_LONG).show()
+
+                    // TODO Add Navigation to add screen
                 }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
@@ -43,4 +45,11 @@ fun HomeView(){
 
         }
     }
+
+}
+
+
+@Composable
+fun WishItem(wish: Wish, onClick: () -> Unit){
+
 }
