@@ -16,7 +16,7 @@ fun Navigation(viewModel: WishViewModel = viewModel(),
         startDestination = Screen.HomeScreen.route
     ){
         composable(Screen.HomeScreen.route){
-            HomeView()
+            HomeView(navController, viewModel)
         }
 
         composable(Screen.HomeScreen.route){
