@@ -37,7 +37,10 @@ fun AddEditDetailView(
   Scaffold(topBar = {AppBarView(title =
   if (id != 0L) stringResource(id = R.string.update_wish)
   else stringResource(id = R.string.add_wish)
-  )}) {
+  ) {navController.navigateUp()}
+  },
+
+      ) {
       Column(modifier = Modifier
           .padding(it)
           .wrapContentSize(),
