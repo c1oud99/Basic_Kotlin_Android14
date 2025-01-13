@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -43,10 +44,18 @@ fun AddEditDetailView(
             verticalArrangement = Arrangement.Center
         ) {
           Spacer(modifier = Modifier.height(10.dp))
-
-
-
-
+            
+            WishTextField(label = "Title",
+                value = viewModel.wishTitleState,
+                onValueChanged = {
+                    viewModel.onWishTitleChanged(it)
+                })
+            
+            Spacer(modifier = Modifier.height(10.dp))
+            Button(onClick = {}) {
+                Text(
+                    text = if (id != 0L) stringResource(id = "Update Wish") else stringResource(id = "Add Wish"))
+            }
         }
   }
 }
