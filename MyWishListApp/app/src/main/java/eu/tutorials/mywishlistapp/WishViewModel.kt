@@ -13,7 +13,7 @@ class WishViewModel:ViewModel() {
         wishTitleState = newString
     }
 
-    fun onWishDescriptionState(newString: String){
+    fun onWishDescriptionChanged(newString: String){
         wishDescriptionState = newString
     }
 }
