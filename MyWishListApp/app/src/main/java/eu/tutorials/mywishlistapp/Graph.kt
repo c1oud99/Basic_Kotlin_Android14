@@ -13,6 +13,7 @@ object Graph {
     }
 
     fun provide(context: Context){
-        database = Room.databaseBuilder(context, WishDatabase::class.java, "wishlist.db")
+        database = Room.databaseBuilder(context, WishDatabase::class.java, "wishlist.db").build()
     }
+
 }
