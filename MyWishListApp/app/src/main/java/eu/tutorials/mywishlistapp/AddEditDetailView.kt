@@ -13,9 +13,11 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import eu.tutorials.mywishlistapp.data.Wish
 
 @Composable
 fun AddEditDetailView(
@@ -34,58 +37,81 @@ fun AddEditDetailView(
     viewModel: WishViewModel,
     navController: NavController
 ){
-  Scaffold(topBar = {AppBarView(title =
-  if (id != 0L) stringResource(id = R.string.update_wish)
-  else stringResource(id = R.string.add_wish)
-  ) {navController.navigateUp()}
-  },
 
-      ) {
-      Column(modifier = Modifier
-          .padding(it)
-          .wrapContentSize(),
-          horizontalAlignment = Alignment.CenterHorizontally,
-          verticalArrangement = Arrangement.Center
-      ) {
-          Spacer(modifier = Modifier.height(10.dp))
-            
-          WishTextField(label = "Title",
-              value = viewModel.wishTitleState,
-              onValueChanged = {
-                  viewModel.onWishTitleChanged(it)
-              })
-
-          Spacer(modifier = Modifier.height(10.dp))
-
-          WishTextField(label = "Description",
-              value = viewModel.wishDescriptionState,
-              onValueChanged = {
-                  viewModel.onWishTitleChanged(it)
-              })
-
-          Spacer(modifier = Modifier.height(10.dp))
-          Button(onClick = {
-              if(viewModel.wishTitleState.isNotEmpty() &&
-                  viewModel.wishDescriptionState.isNotEmpty()){
-                  // TODO UpdateWish
-              }else{
-                  // TODO AddWish
-              }
+    val snackMessage = remember {
+        mutableStateOf("")
+    }
+    val scope = rememberCoroutineScope()
+    val scaffoldState = rememberScaffoldState()
 
 
-          }) {
-              Text(
-                  text = if (id != 0L) stringResource(id = R.string.update_wish)
-                  else stringResource(
-                      id = R.string.add_wish
-                  ),
-                  style = TextStyle(
-                      fontSize = 18.sp
+    Scaffold(
+        topBar = {
+            AppBarView(
+                title =
+                if (id != 0L) stringResource(id = R.string.update_wish)
+                else stringResource(id = R.string.add_wish)
+            ) { navController.navigateUp() }
+        },
+
+        ) {
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .wrapContentSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Spacer(modifier = Modifier.height(10.dp))
+
+            WishTextField(label = "Title",
+                value = viewModel.wishTitleState,
+                onValueChanged = {
+                    viewModel.onWishTitleChanged(it)
+                })
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            WishTextField(label = "Description",
+                value = viewModel.wishDescriptionState,
+                onValueChanged = {
+                    viewModel.onWishTitleChanged(it)
+                })
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Button(onClick = {
+                if (viewModel.wishTitleState.isNotEmpty() &&
+                    viewModel.wishDescriptionState.isNotEmpty()) {
+                    if(id != 0L){
+                        // TODO UpdateWish
+                    }else{
+                        // TODO AddWish
+                        viewModel.addWish(
+                            Wish(
+                                title = viewModel.wishTitleState.trim(),
+                                description = viewModel.wishDescriptionState.trim()
+                            )
+                        )
+                    }
+
+                } else {
+
+                }
+
+
+            }) {
+                Text(
+                    text = if (id != 0L) stringResource(id = R.string.update_wish)
+                    else stringResource(
+                        id = R.string.add_wish
+                    ),
+                    style = TextStyle(
+                        fontSize = 18.sp
                     )
                 )
             }
         }
-  }
+    }
 }
 
 
@@ -96,7 +122,7 @@ fun WishTextField(
     onValueChanged: (String) -> Unit
 ){
     OutlinedTextField(
-        value = value, 
+        value = value,
         onValueChange = onValueChanged,
         label = { Text(text = label, color = Color.Black)},
         modifier = Modifier.fillMaxWidth(),
