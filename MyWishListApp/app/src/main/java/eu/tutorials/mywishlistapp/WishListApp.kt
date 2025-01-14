@@ -1,4 +1,10 @@
 package eu.tutorials.mywishlistapp
 
-class WishListApp {
+import android.app.Application
+
+class WishListApp:Application() {
+    override fun onCreate() {
+        super.onCreate()
+        Graph.provide(this)
+    }
 }
