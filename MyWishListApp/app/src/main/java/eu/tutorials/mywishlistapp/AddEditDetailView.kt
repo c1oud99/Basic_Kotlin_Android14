@@ -92,10 +92,13 @@ fun AddEditDetailView(
                                 description = viewModel.wishDescriptionState.trim()
                             )
                         )
+                        snackMessage.value = "Wish has been created"
                     }
 
-                } else {
 
+                } else {
+                    //
+                    snackMessage.value = "Enter fields to create a wish"
                 }
 
 
