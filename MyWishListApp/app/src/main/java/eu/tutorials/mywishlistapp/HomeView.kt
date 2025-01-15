@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -33,11 +35,10 @@ fun HomeView(
     viewModel: WishViewModel
 ){
     val context = LocalContext.current
+    val scaffoldState = rememberScaffoldState()
     Scaffold(
-        topBar = { AppBarView(title = "WishList", {
-            Toast.makeText(context, "Button Clicked", Toast.LENGTH_LONG).show()
-
-        })},
+        scaffoldState = scaffoldState,
+        topBar = { AppBarView(title = "WishList")},
         floatingActionButton = {
             FloatingActionButton(
                 modifier = Modifier.padding(all = 20.dp),
@@ -45,7 +46,7 @@ fun HomeView(
                 backgroundColor = Color.Black,
                 onClick = {
                     Toast.makeText(context, "FAButton Clicked", Toast.LENGTH_LONG).show()
-                    navController.navigate(Screen.AddScreen.route)
+                    navController.navigate(Screen.AddScreen.route + "/0L")
                     // TODO Add Navigation to add screen
                 }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
