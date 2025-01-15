@@ -59,8 +59,9 @@ fun HomeView(
             .padding(it)) {
             items(wishlist.value){
                 wish -> WishItem(wish = wish) {
-
-            }
+                    val id = wish.id
+                    navController.navigate(Screen.AddScreen.route + "/$id")
+                }
             }
         }
     }
