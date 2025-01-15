@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "eu.tutorials.musicappui"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "eu.tutorials.musicappui"
