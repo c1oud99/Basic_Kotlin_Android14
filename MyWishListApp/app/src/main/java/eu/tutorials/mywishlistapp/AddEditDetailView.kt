@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import eu.tutorials.mywishlistapp.data.Wish
+import kotlinx.coroutines.launch
 
 @Composable
 fun AddEditDetailView(
@@ -46,14 +47,12 @@ fun AddEditDetailView(
 
 
     Scaffold(
-        topBar = {
-            AppBarView(
-                title =
-                if (id != 0L) stringResource(id = R.string.update_wish)
-                else stringResource(id = R.string.add_wish)
-            ) { navController.navigateUp() }
+        topBar = { AppBarView(title =
+    if (id != 0L) stringResource(id = R.string.update_wish)
+    else stringResource(id = R.string.add_wish)
+    ) { navController.navigateUp()}
         },
-
+        scaffoldState = scaffoldState
         ) {
         Column(
             modifier = Modifier
@@ -94,14 +93,14 @@ fun AddEditDetailView(
                         )
                         snackMessage.value = "Wish has been created"
                     }
-
-
                 } else {
                     //
                     snackMessage.value = "Enter fields to create a wish"
                 }
-
-
+                scope.launch {
+                    scaffoldState.snackbarHostState.showSnackbar(snackMessage.value)
+                    navController.navigateUp()
+                }
             }) {
                 Text(
                     text = if (id != 0L) stringResource(id = R.string.update_wish)
