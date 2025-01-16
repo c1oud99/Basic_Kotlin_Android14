@@ -24,6 +24,7 @@ fun MainView(){
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val scope: CoroutineScope = rememberCoroutineScope()
 
+
     Scaffold(
         topBar ={
             TopAppBar(title = { Text("Home") },
@@ -38,7 +39,17 @@ fun MainView(){
             )
         }
 
+
     ) {
         Text("Text", modifier = Modifier.padding(it))
     }
+
+}
+
+@Composable
+fun DrawerItem(
+    selected: Boolean,
+    onDrawerItemClicked: () -> Unit
+){
+
 }
