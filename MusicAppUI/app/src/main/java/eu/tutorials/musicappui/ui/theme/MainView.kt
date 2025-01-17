@@ -1,6 +1,5 @@
 package eu.tutorials.musicappui.ui.theme
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
@@ -38,7 +38,6 @@ import androidx.navigation.compose.rememberNavController
 import eu.tutorials.musicappui.MainViewModel
 import eu.tutorials.musicappui.Screen
 import eu.tutorials.musicappui.screensInDrawer
-import eu.tutorials.musicappui.ui.theme.AccountDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -53,7 +52,6 @@ fun MainView(){
     val controller: NavController = rememberNavController()
     val navBackStackEntry by controller.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-
     val dialogOpen = remember {
         mutableStateOf(false)
     }
@@ -69,7 +67,7 @@ fun MainView(){
 
     Scaffold(
         topBar ={
-            TopAppBar(title = { Text("Home") },
+            TopAppBar(title = { Text(title.value) },
                 navigationIcon = { IconButton(onClick = {
                     // Open the drawer
                     scope.launch {
@@ -141,8 +139,8 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, pd:Paddin
     NavHost(navController = navController as NavHostController,
         startDestination = Screen.DrawerScreen.AddAccount.route, modifier = Modifier.padding(pd) ){
 
-        composable(Screen.DrawerScreen.AddAccount.route){
-
+        composable(Screen.DrawerScreen.Account.route){
+            AccountView()
         }
         composable(Screen.DrawerScreen.Subscription.route){
 
