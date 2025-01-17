@@ -64,8 +64,14 @@ fun MainView(){
         mutableStateOf("")
     }
 
+    val bottomBar: @Composable () -> Unit = {
+        if(currentScreen)
+    }
+
+
 
     Scaffold(
+        bottomBar = {},
         topBar ={
             TopAppBar(title = { Text(title.value) },
                 navigationIcon = { IconButton(onClick = {
