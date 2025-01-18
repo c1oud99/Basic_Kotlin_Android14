@@ -4,6 +4,16 @@ import androidx.annotation.DrawableRes
 
 sealed class Screen(val title: String, val route: String) {
 
+    sealed class BottomScreen(
+        val bTitle: String, val bRoute: String, @DrawableRes val icon: Int
+    ):Screen(bTitle,bRoute){
+        object Home: BottomScreen("Home", "home", R.drawable.baseline_music_video_24)
+
+        object Library : BottomScreen(
+            "Library", "library", R.drawable
+        )
+    }
+
     sealed class DrawerScreen(val dTitle: String, val dRoute: String, @DrawableRes val icon: Int)
         : Screen(dTitle, dRoute){
             object Account: DrawerScreen(
