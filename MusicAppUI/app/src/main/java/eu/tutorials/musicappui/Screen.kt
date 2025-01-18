@@ -10,7 +10,11 @@ sealed class Screen(val title: String, val route: String) {
         object Home: BottomScreen("Home", "home", R.drawable.baseline_music_video_24)
 
         object Library : BottomScreen(
-            "Library", "library", R.drawable
+            "Library", "library", R.drawable.baseline_library_music_24
+        )
+        object Browse: BottomScreen(
+            "Browse", "browse",
+            R.drawable.baseline_apps_24
         )
     }
 
