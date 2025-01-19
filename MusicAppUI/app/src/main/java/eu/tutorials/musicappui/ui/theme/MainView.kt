@@ -164,6 +164,18 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, pd:Paddin
     NavHost(navController = navController as NavHostController,
         startDestination = Screen.DrawerScreen.AddAccount.route, modifier = Modifier.padding(pd) ){
 
+        composable(Screen.BottomScreen.Home.bRoute){
+            // TODO HOME
+        }
+
+        composable(Screen.BottomScreen.Browse.bRoute){
+            // TODO BROWSE
+        }
+
+        composable(Screen.BottomScreen.Library.bRoute){
+            // TODO LIBRARY
+        }
+
         composable(Screen.DrawerScreen.Account.route){
             AccountView()
         }
