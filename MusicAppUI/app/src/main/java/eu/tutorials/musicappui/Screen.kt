@@ -40,6 +40,12 @@ sealed class Screen(val title: String, val route: String) {
 
 }
 
+val screensInBottom = listOf(
+    Screen.BottomScreen.Home,
+    Screen.BottomScreen.Browse,
+    Screen.BottomScreen.Library
+)
+
 val screensInDrawer = listOf(
     Screen.DrawerScreen.Account,
     Screen.DrawerScreen.Subscription,
