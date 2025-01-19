@@ -165,7 +165,7 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, pd:Paddin
         startDestination = Screen.DrawerScreen.AddAccount.route, modifier = Modifier.padding(pd) ){
 
         composable(Screen.BottomScreen.Home.bRoute){
-            // TODO HOME
+            Home()
         }
 
         composable(Screen.BottomScreen.Browse.bRoute){
