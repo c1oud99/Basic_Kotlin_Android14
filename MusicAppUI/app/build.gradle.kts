@@ -51,6 +51,7 @@ android {
 
 dependencies {
 
+    implementation("androidx.compose.ui:ui-test-android:1.7.6")
     val nav_version = "2.7.5"
     val compose_version = "1.6.0-alpha08"
     implementation("androidx.navigation:navigation-compose:$nav_version")
