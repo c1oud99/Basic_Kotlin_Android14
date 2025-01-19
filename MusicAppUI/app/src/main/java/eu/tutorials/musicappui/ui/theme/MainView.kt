@@ -76,8 +76,12 @@ fun MainView(){
                     BottomNavigationItem(selected = currentRoute == item.bRoute, 
                         onClick = { controller.navigate(item.bRoute) }, icon = { 
                             
-                            Icon(contentDescription = item.bTitle, painterResource(id = item.icon))
-                        })
+                            Icon(contentDescription = item.bTitle, painter = painterResource(id = item.icon))
+                        },
+                        label = { Text(text = item.bTitle)}
+                        , selectedContentColor = Color.White,
+                        unselectedContentColor = Color.Black
+                        )
                 }
             }
         }
@@ -86,7 +90,7 @@ fun MainView(){
 
 
     Scaffold(
-        bottomBar = {},
+        bottomBar = bottomBar,
         topBar ={
             TopAppBar(title = { Text(title.value) },
                 navigationIcon = { IconButton(onClick = {
