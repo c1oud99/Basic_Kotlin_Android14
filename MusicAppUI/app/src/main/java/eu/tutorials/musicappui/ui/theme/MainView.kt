@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
@@ -39,6 +40,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import eu.tutorials.musicappui.MainViewModel
 import eu.tutorials.musicappui.Screen
+import eu.tutorials.musicappui.screensInBottom
 import eu.tutorials.musicappui.screensInDrawer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -69,7 +71,14 @@ fun MainView(){
     val bottomBar: @Composable () -> Unit = {
         if(currentScreen is Screen.DrawerScreen || currentScreen == Screen.BottomScreen.Home){
             BottomNavigation(Modifier.wrapContentSize()) {
-
+                screensInBottom.forEach{
+                    item ->
+                    BottomNavigationItem(selected = currentRoute == item.bRoute, 
+                        onClick = { controller.navigate(item.bRoute) }, icon = { 
+                            
+                            Icon(contentDescription = item.bTitle, painterResource(id = item.icon))
+                        })
+                }
             }
         }
     }
